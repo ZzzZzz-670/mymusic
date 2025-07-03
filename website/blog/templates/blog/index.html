@@ -1,0 +1,19 @@
+<h1><a href="/index/blog/1"> {{ blog_title }} </a></h1>
+<p>
+    {{ blog_content }}
+</p>
+{% if comments %}
+    <ul>
+    {% for comment in comments %}
+        <li>{{ comment.user }} : {{ comment.comment_content }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No comment.</p>
+{% endif %}
+<form action="/index/comment/{{ blog_id }}" method="post">  #表单，用于提交评论
+    {% csrf_token %}
+    user:<input type="text" name="user">       #name对应request中的键值（key）
+    comment:<input type="text" name="content">
+    <input type="submit" value="comment">
+</form>
